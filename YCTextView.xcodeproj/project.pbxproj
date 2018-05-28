@@ -1,0 +1,627 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		04BBC47920BC055100993E00 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BBC47820BC055100993E00 /* AppDelegate.m */; };
+		04BBC47C20BC055100993E00 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BBC47B20BC055100993E00 /* ViewController.m */; };
+		04BBC47F20BC055100993E00 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04BBC47D20BC055100993E00 /* Main.storyboard */; };
+		04BBC48120BC055100993E00 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04BBC48020BC055100993E00 /* Assets.xcassets */; };
+		04BBC48420BC055100993E00 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04BBC48220BC055100993E00 /* LaunchScreen.storyboard */; };
+		04BBC48720BC055100993E00 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BBC48620BC055100993E00 /* main.m */; };
+		04BBC49120BC055100993E00 /* YCTextViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BBC49020BC055100993E00 /* YCTextViewTests.m */; };
+		04BBC49C20BC055100993E00 /* YCTextViewUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BBC49B20BC055100993E00 /* YCTextViewUITests.m */; };
+		04BBC4AC20BC0A2D00993E00 /* YCTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BBC4AB20BC0A2D00993E00 /* YCTextView.m */; };
+		04BBC4AF20BC0AA200993E00 /* YCAttachmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BBC4AE20BC0AA200993E00 /* YCAttachmentView.m */; };
+		68A21105394FF93F00DD5D41 /* libPods-YCTextView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4E40209B6B4263E8FB3E81A /* libPods-YCTextView.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		04BBC48D20BC055100993E00 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04BBC46C20BC055100993E00 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 04BBC47320BC055100993E00;
+			remoteInfo = YCTextView;
+		};
+		04BBC49820BC055100993E00 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04BBC46C20BC055100993E00 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 04BBC47320BC055100993E00;
+			remoteInfo = YCTextView;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		04BBC47420BC055100993E00 /* YCTextView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YCTextView.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		04BBC47720BC055100993E00 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		04BBC47820BC055100993E00 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		04BBC47A20BC055100993E00 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		04BBC47B20BC055100993E00 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		04BBC47E20BC055100993E00 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		04BBC48020BC055100993E00 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		04BBC48320BC055100993E00 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		04BBC48520BC055100993E00 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		04BBC48620BC055100993E00 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		04BBC48C20BC055100993E00 /* YCTextViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YCTextViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		04BBC49020BC055100993E00 /* YCTextViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YCTextViewTests.m; sourceTree = "<group>"; };
+		04BBC49220BC055100993E00 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		04BBC49720BC055100993E00 /* YCTextViewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YCTextViewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		04BBC49B20BC055100993E00 /* YCTextViewUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YCTextViewUITests.m; sourceTree = "<group>"; };
+		04BBC49D20BC055100993E00 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		04BBC4AA20BC0A2D00993E00 /* YCTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YCTextView.h; sourceTree = "<group>"; };
+		04BBC4AB20BC0A2D00993E00 /* YCTextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YCTextView.m; sourceTree = "<group>"; };
+		04BBC4AD20BC0AA100993E00 /* YCAttachmentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YCAttachmentView.h; sourceTree = "<group>"; };
+		04BBC4AE20BC0AA200993E00 /* YCAttachmentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YCAttachmentView.m; sourceTree = "<group>"; };
+		42BFE2316630EE04CEEB16D3 /* Pods-YCTextView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YCTextView.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YCTextView/Pods-YCTextView.debug.xcconfig"; sourceTree = "<group>"; };
+		DE079AA2FDEB74F4E3DE3BD7 /* Pods-YCTextView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YCTextView.release.xcconfig"; path = "Pods/Target Support Files/Pods-YCTextView/Pods-YCTextView.release.xcconfig"; sourceTree = "<group>"; };
+		E4E40209B6B4263E8FB3E81A /* libPods-YCTextView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YCTextView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		04BBC47120BC055100993E00 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				68A21105394FF93F00DD5D41 /* libPods-YCTextView.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		04BBC48920BC055100993E00 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		04BBC49420BC055100993E00 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		04BBC46B20BC055100993E00 = {
+			isa = PBXGroup;
+			children = (
+				04BBC47620BC055100993E00 /* YCTextView */,
+				04BBC48F20BC055100993E00 /* YCTextViewTests */,
+				04BBC49A20BC055100993E00 /* YCTextViewUITests */,
+				04BBC47520BC055100993E00 /* Products */,
+				7A9A1156D3E1A06AFFE740B1 /* Pods */,
+				BCC3C8233368062ED38B6EBA /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		04BBC47520BC055100993E00 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				04BBC47420BC055100993E00 /* YCTextView.app */,
+				04BBC48C20BC055100993E00 /* YCTextViewTests.xctest */,
+				04BBC49720BC055100993E00 /* YCTextViewUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		04BBC47620BC055100993E00 /* YCTextView */ = {
+			isa = PBXGroup;
+			children = (
+				04BBC4A920BC09F700993E00 /* class */,
+				04BBC47720BC055100993E00 /* AppDelegate.h */,
+				04BBC47820BC055100993E00 /* AppDelegate.m */,
+				04BBC47A20BC055100993E00 /* ViewController.h */,
+				04BBC47B20BC055100993E00 /* ViewController.m */,
+				04BBC47D20BC055100993E00 /* Main.storyboard */,
+				04BBC48020BC055100993E00 /* Assets.xcassets */,
+				04BBC48220BC055100993E00 /* LaunchScreen.storyboard */,
+				04BBC48520BC055100993E00 /* Info.plist */,
+				04BBC48620BC055100993E00 /* main.m */,
+			);
+			path = YCTextView;
+			sourceTree = "<group>";
+		};
+		04BBC48F20BC055100993E00 /* YCTextViewTests */ = {
+			isa = PBXGroup;
+			children = (
+				04BBC49020BC055100993E00 /* YCTextViewTests.m */,
+				04BBC49220BC055100993E00 /* Info.plist */,
+			);
+			path = YCTextViewTests;
+			sourceTree = "<group>";
+		};
+		04BBC49A20BC055100993E00 /* YCTextViewUITests */ = {
+			isa = PBXGroup;
+			children = (
+				04BBC49B20BC055100993E00 /* YCTextViewUITests.m */,
+				04BBC49D20BC055100993E00 /* Info.plist */,
+			);
+			path = YCTextViewUITests;
+			sourceTree = "<group>";
+		};
+		04BBC4A920BC09F700993E00 /* class */ = {
+			isa = PBXGroup;
+			children = (
+				04BBC4AA20BC0A2D00993E00 /* YCTextView.h */,
+				04BBC4AB20BC0A2D00993E00 /* YCTextView.m */,
+				04BBC4AD20BC0AA100993E00 /* YCAttachmentView.h */,
+				04BBC4AE20BC0AA200993E00 /* YCAttachmentView.m */,
+			);
+			path = class;
+			sourceTree = "<group>";
+		};
+		7A9A1156D3E1A06AFFE740B1 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				42BFE2316630EE04CEEB16D3 /* Pods-YCTextView.debug.xcconfig */,
+				DE079AA2FDEB74F4E3DE3BD7 /* Pods-YCTextView.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		BCC3C8233368062ED38B6EBA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E4E40209B6B4263E8FB3E81A /* libPods-YCTextView.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		04BBC47320BC055100993E00 /* YCTextView */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 04BBC4A020BC055100993E00 /* Build configuration list for PBXNativeTarget "YCTextView" */;
+			buildPhases = (
+				D65EB604638E92C58F8F8D96 /* [CP] Check Pods Manifest.lock */,
+				04BBC47020BC055100993E00 /* Sources */,
+				04BBC47120BC055100993E00 /* Frameworks */,
+				04BBC47220BC055100993E00 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = YCTextView;
+			productName = YCTextView;
+			productReference = 04BBC47420BC055100993E00 /* YCTextView.app */;
+			productType = "com.apple.product-type.application";
+		};
+		04BBC48B20BC055100993E00 /* YCTextViewTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 04BBC4A320BC055100993E00 /* Build configuration list for PBXNativeTarget "YCTextViewTests" */;
+			buildPhases = (
+				04BBC48820BC055100993E00 /* Sources */,
+				04BBC48920BC055100993E00 /* Frameworks */,
+				04BBC48A20BC055100993E00 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				04BBC48E20BC055100993E00 /* PBXTargetDependency */,
+			);
+			name = YCTextViewTests;
+			productName = YCTextViewTests;
+			productReference = 04BBC48C20BC055100993E00 /* YCTextViewTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		04BBC49620BC055100993E00 /* YCTextViewUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 04BBC4A620BC055100993E00 /* Build configuration list for PBXNativeTarget "YCTextViewUITests" */;
+			buildPhases = (
+				04BBC49320BC055100993E00 /* Sources */,
+				04BBC49420BC055100993E00 /* Frameworks */,
+				04BBC49520BC055100993E00 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				04BBC49920BC055100993E00 /* PBXTargetDependency */,
+			);
+			name = YCTextViewUITests;
+			productName = YCTextViewUITests;
+			productReference = 04BBC49720BC055100993E00 /* YCTextViewUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		04BBC46C20BC055100993E00 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0900;
+				ORGANIZATIONNAME = YC;
+				TargetAttributes = {
+					04BBC47320BC055100993E00 = {
+						CreatedOnToolsVersion = 9.0.1;
+						ProvisioningStyle = Automatic;
+					};
+					04BBC48B20BC055100993E00 = {
+						CreatedOnToolsVersion = 9.0.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 04BBC47320BC055100993E00;
+					};
+					04BBC49620BC055100993E00 = {
+						CreatedOnToolsVersion = 9.0.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 04BBC47320BC055100993E00;
+					};
+				};
+			};
+			buildConfigurationList = 04BBC46F20BC055100993E00 /* Build configuration list for PBXProject "YCTextView" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 04BBC46B20BC055100993E00;
+			productRefGroup = 04BBC47520BC055100993E00 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				04BBC47320BC055100993E00 /* YCTextView */,
+				04BBC48B20BC055100993E00 /* YCTextViewTests */,
+				04BBC49620BC055100993E00 /* YCTextViewUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		04BBC47220BC055100993E00 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04BBC48420BC055100993E00 /* LaunchScreen.storyboard in Resources */,
+				04BBC48120BC055100993E00 /* Assets.xcassets in Resources */,
+				04BBC47F20BC055100993E00 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		04BBC48A20BC055100993E00 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		04BBC49520BC055100993E00 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		D65EB604638E92C58F8F8D96 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-YCTextView-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		04BBC47020BC055100993E00 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04BBC47C20BC055100993E00 /* ViewController.m in Sources */,
+				04BBC4AF20BC0AA200993E00 /* YCAttachmentView.m in Sources */,
+				04BBC48720BC055100993E00 /* main.m in Sources */,
+				04BBC47920BC055100993E00 /* AppDelegate.m in Sources */,
+				04BBC4AC20BC0A2D00993E00 /* YCTextView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		04BBC48820BC055100993E00 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04BBC49120BC055100993E00 /* YCTextViewTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		04BBC49320BC055100993E00 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04BBC49C20BC055100993E00 /* YCTextViewUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		04BBC48E20BC055100993E00 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 04BBC47320BC055100993E00 /* YCTextView */;
+			targetProxy = 04BBC48D20BC055100993E00 /* PBXContainerItemProxy */;
+		};
+		04BBC49920BC055100993E00 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 04BBC47320BC055100993E00 /* YCTextView */;
+			targetProxy = 04BBC49820BC055100993E00 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		04BBC47D20BC055100993E00 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				04BBC47E20BC055100993E00 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		04BBC48220BC055100993E00 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				04BBC48320BC055100993E00 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		04BBC49E20BC055100993E00 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		04BBC49F20BC055100993E00 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		04BBC4A120BC055100993E00 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 42BFE2316630EE04CEEB16D3 /* Pods-YCTextView.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = LEZB7733B3;
+				INFOPLIST_FILE = YCTextView/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = cn.changniannian.YC.YCTextView;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		04BBC4A220BC055100993E00 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DE079AA2FDEB74F4E3DE3BD7 /* Pods-YCTextView.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = LEZB7733B3;
+				INFOPLIST_FILE = YCTextView/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = cn.changniannian.YC.YCTextView;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		04BBC4A420BC055100993E00 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = LEZB7733B3;
+				INFOPLIST_FILE = YCTextViewTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = cn.changniannian.YC.YCTextViewTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/YCTextView.app/YCTextView";
+			};
+			name = Debug;
+		};
+		04BBC4A520BC055100993E00 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = LEZB7733B3;
+				INFOPLIST_FILE = YCTextViewTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = cn.changniannian.YC.YCTextViewTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/YCTextView.app/YCTextView";
+			};
+			name = Release;
+		};
+		04BBC4A720BC055100993E00 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = LEZB7733B3;
+				INFOPLIST_FILE = YCTextViewUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = cn.changniannian.YC.YCTextViewUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = YCTextView;
+			};
+			name = Debug;
+		};
+		04BBC4A820BC055100993E00 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = LEZB7733B3;
+				INFOPLIST_FILE = YCTextViewUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = cn.changniannian.YC.YCTextViewUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = YCTextView;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		04BBC46F20BC055100993E00 /* Build configuration list for PBXProject "YCTextView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				04BBC49E20BC055100993E00 /* Debug */,
+				04BBC49F20BC055100993E00 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		04BBC4A020BC055100993E00 /* Build configuration list for PBXNativeTarget "YCTextView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				04BBC4A120BC055100993E00 /* Debug */,
+				04BBC4A220BC055100993E00 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		04BBC4A320BC055100993E00 /* Build configuration list for PBXNativeTarget "YCTextViewTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				04BBC4A420BC055100993E00 /* Debug */,
+				04BBC4A520BC055100993E00 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		04BBC4A620BC055100993E00 /* Build configuration list for PBXNativeTarget "YCTextViewUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				04BBC4A720BC055100993E00 /* Debug */,
+				04BBC4A820BC055100993E00 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 04BBC46C20BC055100993E00 /* Project object */;
+}
