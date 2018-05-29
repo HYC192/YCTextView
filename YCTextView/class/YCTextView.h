@@ -9,5 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @interface YCTextView : UITextView
-
+/**
+ 提示文字
+ */
+@property (nonatomic, copy) NSString *placeHolder;
+/**
+ 提示文字颜色
+ */
+@property (nonatomic, strong) UIColor *placeHolderTextColor;
 @end

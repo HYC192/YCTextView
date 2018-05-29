@@ -8,13 +8,44 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger, YCAttachmentType) {
+    YCAttachmentTypeImage = 0,
+    YCAttachmentTypeVoice,
+    YCAttachmentTypeVideo,
+};
+
+@class YCAttachmentView;
+@protocol YCAttachmentViewDelegate<NSObject>
+@optional
+/**
+ 更新布局
+
+ @param attachView obj
+ @param size 尺寸
+ */
+- (void)updateAttachmentViewConstraints:(YCAttachmentView *)attachView size:(CGSize)size;
+@end
+
 @interface YCAttachmentView : UIView
+@property (nonatomic, weak) id<YCAttachmentViewDelegate> delegate;
+/**
+ 创建控件
+
+ @param imagePath 图片路径
+ @param placeHoldImage 默认占位图
+ @param type 创建类型
+ */
+- (void)YCAttachmentContentWithImage:(id)image
+                           imagePath:(id)imagePath
+                      placeHoldImage:(UIImage *)placeHoldImage
+                      attachmentType:(YCAttachmentType)type;
 /**
  传入图片（NSData,Path,Image）
  */
-@property (nonatomic, strong) id image;
+@property (nonatomic, readonly) id imagePath;
+
 /**
- 链接路径
+ 类型
  */
-@property (nonatomic, strong) NSString *url;
+@property (nonatomic, readonly) YCAttachmentType type;
 @end

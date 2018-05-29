@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "YCEditController.h"
 
 @interface ViewController ()
 
@@ -17,6 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    self.navigationItem.title = @"主界面";
 }
 
 
@@ -25,6 +27,8 @@
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)nextAction:(id)sender {
+    YCEditController *editVC = [[YCEditController alloc] init];
+    [self.navigationController pushViewController:editVC animated:YES];
 }
 
 
