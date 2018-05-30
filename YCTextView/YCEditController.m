@@ -478,7 +478,14 @@
     }
 }
 
-//删除控件
+/************
+ >>> 删除控件 （连同下面的textview）:
+ 1、获取当前控件，位置
+ 2、根据当前控件位置，判断上个控件是否为Textview，
+     a、如果为textview，则判断控件链接的textview带的文本，赋值给这个textview
+     b、如果为控件，则不删除链接的textview
+ 3、布局删除掉的相关控件下一个控件，自由度顶部设为这个textview的底部
+*********/
 - (void)_deleteAttachViewWithObject:(YCAttachmentView *)object
 {
     YCTextView *firstObj = nil;
