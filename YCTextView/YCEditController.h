@@ -14,5 +14,5 @@ typedef NS_ENUM(NSInteger, YCEditObjType) {
     YCEditObjTypeView
 };
 @interface YCEditController : UIViewController
-
+@property (nonatomic, strong) NSString *messageContent;
 @end

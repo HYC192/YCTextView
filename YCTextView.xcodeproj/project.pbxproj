@@ -18,6 +18,7 @@
 		04BBC4AC20BC0A2D00993E00 /* YCTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BBC4AB20BC0A2D00993E00 /* YCTextView.m */; };
 		04BBC4AF20BC0AA200993E00 /* YCAttachmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BBC4AE20BC0AA200993E00 /* YCAttachmentView.m */; };
 		04BBC4B220BCEE2E00993E00 /* YCEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BBC4B120BCEE2E00993E00 /* YCEditController.m */; };
+		04CD818B20BFE7B700E69D05 /* images_01.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 04CD818A20BFE7B700E69D05 /* images_01.jpg */; };
 		68A21105394FF93F00DD5D41 /* libPods-YCTextView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4E40209B6B4263E8FB3E81A /* libPods-YCTextView.a */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +62,7 @@
 		04BBC4AE20BC0AA200993E00 /* YCAttachmentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YCAttachmentView.m; sourceTree = "<group>"; };
 		04BBC4B020BCEE2E00993E00 /* YCEditController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YCEditController.h; sourceTree = "<group>"; };
 		04BBC4B120BCEE2E00993E00 /* YCEditController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YCEditController.m; sourceTree = "<group>"; };
+		04CD818A20BFE7B700E69D05 /* images_01.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = images_01.jpg; sourceTree = "<group>"; };
 		42BFE2316630EE04CEEB16D3 /* Pods-YCTextView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YCTextView.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YCTextView/Pods-YCTextView.debug.xcconfig"; sourceTree = "<group>"; };
 		DE079AA2FDEB74F4E3DE3BD7 /* Pods-YCTextView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YCTextView.release.xcconfig"; path = "Pods/Target Support Files/Pods-YCTextView/Pods-YCTextView.release.xcconfig"; sourceTree = "<group>"; };
 		E4E40209B6B4263E8FB3E81A /* libPods-YCTextView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YCTextView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -117,6 +119,7 @@
 		04BBC47620BC055100993E00 /* YCTextView */ = {
 			isa = PBXGroup;
 			children = (
+				04CD818A20BFE7B700E69D05 /* images_01.jpg */,
 				04BBC4A920BC09F700993E00 /* class */,
 				04BBC47720BC055100993E00 /* AppDelegate.h */,
 				04BBC47820BC055100993E00 /* AppDelegate.m */,
@@ -288,6 +291,7 @@
 			files = (
 				04BBC48420BC055100993E00 /* LaunchScreen.storyboard in Resources */,
 				04BBC48120BC055100993E00 /* Assets.xcassets in Resources */,
+				04CD818B20BFE7B700E69D05 /* images_01.jpg in Resources */,
 				04BBC47F20BC055100993E00 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

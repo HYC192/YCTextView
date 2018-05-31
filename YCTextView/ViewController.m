@@ -28,6 +28,7 @@
 }
 - (IBAction)nextAction:(id)sender {
     YCEditController *editVC = [[YCEditController alloc] init];
+//    editVC.messageContent = @"[img]https://app.niannian99.com?isdf1.jpg[/img][img]https://app.niannian99.com?isdf2.jpg[/img]sodfsdlf[img]https://app.niannian99.com?isdf3.jpg[/img]";
     [self.navigationController pushViewController:editVC animated:YES];
 }
 

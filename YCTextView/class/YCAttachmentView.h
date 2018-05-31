@@ -24,6 +24,12 @@ typedef NS_ENUM(NSInteger, YCAttachmentType) {
  @param size 尺寸
  */
 - (void)updateAttachmentViewConstraints:(YCAttachmentView *)attachView size:(CGSize)size;
+/**
+ 删除控件
+
+ @param obj 视图
+ */
+- (void)_deleteAttachmentWithObj:(YCAttachmentView *)obj;
 @end
 
 @interface YCAttachmentView : UIView
@@ -43,6 +49,16 @@ typedef NS_ENUM(NSInteger, YCAttachmentType) {
  传入图片（NSData,Path,Image）
  */
 @property (nonatomic, readonly) id imagePath;
+
+/**
+ 传入图片（Image）
+ */
+@property (nonatomic, readonly) id image;
+
+/**
+ 传入内容
+ */
+@property (nonatomic, readonly) NSString *content;
 
 /**
  类型
