@@ -12,6 +12,7 @@
 #import <Masonry/Masonry.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <libextobjc/EXTScope.h>
+#import "YCEditConvertManager.h"
 
 #define kDevice_iPhoneX CGSizeEqualToSize(CGSizeMake(375, 812), [[UIScreen mainScreen] bounds].size)
 #define NavHeight (kDevice_iPhoneX?84:64)
@@ -24,11 +25,23 @@
 #define InputViewBarHeight 50
 #define EditePothoDefHeight 100
 #define kPlaceHoldText @"请输入正文"  //textview默认提示文字
-#define kRegexImage @"\\[img\\][^\\[]*\\[\\/img\\]"  //图片正则
-#define kRegexVoice @"\\[voice\\][^\\[]*\\[\\/voice\\]"  //语音正则
-#define kRegexVideo @"\\[video\\][^\\[]*\\[\\/video\\]"  //视频正则
 
 @interface YCEditController ()<UITextViewDelegate,NSTextStorageDelegate,UIScrollViewDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate, YCAttachmentViewDelegate>
+/**
+ 顶部背景视图
+ */
+@property (nonatomic, strong) UIImageView *topImageView;
+/**
+ 中间视图
+ */
+@property (nonatomic, strong) UIImageView *centerImageView;
+/**
+ 底部视图
+ */
+@property (nonatomic, strong) UIImageView *bottomImageView;
+/**
+ 滚动视图
+ */
 @property (nonatomic, strong) UIScrollView *textScrollView;
 /**
  插入控件数组
@@ -39,19 +52,26 @@
  */
 @property (nonatomic,strong) NSMutableArray *insertImageArray;
 /**
- 是否在编辑器文字
- */
-@property (nonatomic, getter=isEditTextView) BOOL editTextView;
-/**
  当前scorller高度
  */
 @property (nonatomic,assign) CGFloat currentScrHeight;
 
+/**
+ 获取保存光标位置
+ */
 @property (nonatomic, strong) YCTextView *selectionTextView;
+/**
+ 视图间距
+ */
+@property (nonatomic, assign) UIEdgeInsets edgeMargin;
 @end
 
 @implementation YCEditController
 #pragma mark - Lifecycle
+- (void)dealloc{
+    [self removeobserverForKeyBord];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self _initData];
@@ -66,10 +86,33 @@
 }
 
 #pragma mark - Custom Accessor
+- (UIImageView *)topImageView{
+    if (_topImageView == nil) {
+        _topImageView = [[UIImageView alloc] init];
+        _topImageView.backgroundColor = [UIColor redColor];
+    }
+    return _topImageView;
+}
+
+- (UIImageView *)centerImageView{
+    if (_centerImageView == nil) {
+        _centerImageView = [[UIImageView alloc] init];
+        _centerImageView.backgroundColor = [UIColor orangeColor];
+    }
+    return _centerImageView;
+}
+
+- (UIImageView *)bottomImageView{
+    if (_bottomImageView == nil) {
+        _bottomImageView = [[UIImageView alloc] init];
+        _bottomImageView.backgroundColor = [UIColor greenColor];
+    }
+    return _bottomImageView;
+}
+
 - (UIScrollView *)textScrollView{
     if (!_textScrollView) {
-        _textScrollView = [[UIScrollView alloc]init];
-        _textScrollView.backgroundColor = [UIColor whiteColor];
+        _textScrollView = [[UIScrollView alloc] init];
         _textScrollView.delegate = self;
     }
     return _textScrollView;
@@ -153,7 +196,7 @@
 #pragma mark ------------------- Privacy ----------------------
 - (void)_initData
 {
-    _editTextView = NO;
+    _edgeMargin = UIEdgeInsetsMake(0, 15, 0, 15);
     _currentScrHeight = 0;
 }
 
@@ -167,6 +210,20 @@
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyBoardWillChageFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
+}
+
+- (void)removeobserverForKeyBord{
+    
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillShowNotification
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillHideNotification
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillChangeFrameNotification
+                                                  object:nil];
 }
 
 - (void)_settingUpNavigations
@@ -187,15 +244,43 @@
 
 - (void)_settingUpSubviews
 {
+    [self.view addSubview:self.centerImageView];
+    [self.view addSubview:self.topImageView];
     [self.view addSubview:self.textScrollView];
+    [self.view addSubview:self.bottomImageView];
+    
     if (@available(iOS 11.0, *)) {
         self.textScrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     } else {
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
+    
+    @weakify(self);
+    [self.centerImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_equalTo(UIEdgeInsetsMake(0, 0, 0, 0));
+    }];
+    
+    [self.topImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.centerImageView.mas_top);
+        make.left.equalTo(self.centerImageView.mas_left);
+        make.right.equalTo(self.centerImageView.mas_right);
+        make.height.mas_equalTo(50);
+    }];
+    
+    [self.bottomImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.centerImageView.mas_bottom);
+        make.left.equalTo(self.centerImageView.mas_left);
+        make.right.equalTo(self.centerImageView.mas_right);
+        make.height.mas_equalTo(50);
+    }];
+    
     [self.textScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.right.mas_equalTo(0);
-        make.height.mas_equalTo(kScreenHeight-NavHeight-kIPhoneXNoneHeight);
+        @strongify(self);
+        make.top.equalTo(self.topImageView.mas_bottom);
+        make.left.equalTo(self.centerImageView.mas_left);
+        make.right.equalTo(self.centerImageView.mas_right);
+        make.bottom.equalTo(self.bottomImageView.mas_top);
+//        make.height.mas_equalTo(kScreenHeight-NavHeight-kIPhoneXNoneHeight);
     }];
     
     if (self.messageContent && self.messageContent.length > 0) {
@@ -203,7 +288,7 @@
     }
     else
     {
-        [self creatTxetViewWithObject:self.textScrollView index:0 text:nil type:YCEditObjTypeScrollerView];
+        [self creatTextViewWithObject:self.textScrollView index:0 text:nil type:YCEditObjTypeScrollerView];
     }
     [self.view addSubview:self.inputView];
 }
@@ -217,7 +302,7 @@
  @param type 类型
  @return GADetialTextView
  */
-- (YCTextView *)creatTxetViewWithObject:(id)object
+- (YCTextView *)creatTextViewWithObject:(id)object
                                   index:(NSInteger)index
                                    text:(NSString *)text
                                    type:(YCEditObjType)type
@@ -249,7 +334,7 @@
                 make.top.equalTo(viewObject.mas_bottom).offset(TextToImageSpace);
                 make.height.mas_equalTo(height);
                 make.centerX.equalTo(self.textScrollView);
-                make.width.mas_equalTo(kScreenWidth);
+                make.width.mas_equalTo(kScreenWidth-self.edgeMargin.left-self.edgeMargin.right);
             }];
         }
             break;
@@ -259,7 +344,7 @@
                 make.top.equalTo(scrollerObject.mas_top).offset(TextToImageSpace);
                 make.height.mas_equalTo(height);
                 make.centerX.equalTo(scrollerObject);
-                make.width.mas_equalTo(kScreenWidth);
+                make.width.mas_equalTo(kScreenWidth-self.edgeMargin.left-self.edgeMargin.right);
             }];
         }
             break;
@@ -269,7 +354,7 @@
                 make.top.equalTo(textViewObject.mas_bottom).offset(TextToImageSpace);
                 make.height.mas_equalTo(height);
                 make.centerX.equalTo(self.textScrollView);
-                make.width.mas_equalTo(kScreenWidth);
+                make.width.mas_equalTo(kScreenWidth-self.edgeMargin.left-self.edgeMargin.right);
             }];
         }
             break;
@@ -364,9 +449,7 @@ creatPhotoViewWithObject:(id)object
 
 - (void)gettingFrame:(id)data{
     [self _updateScrollerViewContentSize];
-    
     CGFloat height = 0;
-    _editTextView = NO;
     
     NSInteger index = 0;
     if ([data isKindOfClass:[NSDictionary class]]) {
@@ -440,16 +523,18 @@ creatPhotoViewWithObject:(id)object
                     oldFrame:(CGRect)oldFrame
 {
     @weakify(self);
-    CGRect frame = self.textScrollView.frame;
+    CGRect frame = self.centerImageView.frame;
     frame.size.height = newFrame.origin.y;
     [UIView animateWithDuration:duration animations:^{
         @strongify(self);
         self.inputView.frame = newFrame;
-        [self.textScrollView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        [self.centerImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.left.right.mas_equalTo(0);
+//            make.bottom.equalTo(self.bottomImageView.mas_top);
+//            make.top.left.right.mas_equalTo(0);
             make.height.mas_equalTo(CGRectGetHeight(frame));
         }];
-        self.textScrollView.frame = frame;
+        self.centerImageView.frame = frame;
     }];
 }
 
@@ -476,8 +561,8 @@ creatPhotoViewWithObject:(id)object
                         NSString *text = [self.selectionTextView.text substringWithRange:NSMakeRange(0, range.location)];
                         NSString *nextText = [self.selectionTextView.text substringWithRange:NSMakeRange(range.location, self.selectionTextView.text.length-range.location)];
                         
-                        YCAttachmentView *newPhoto = [self creatPhotoViewWithObject:textView index:i+1 model:nil image:image type:YCEditObjTypeTextView];
-                        YCTextView *nextTextView = [self creatTxetViewWithObject:newPhoto index:i+2 text:nextText type:YCEditObjTypeView];
+                        YCAttachmentView *newPhoto = [self creatPhotoViewWithObject:textView index:i+1 model:model image:image type:YCEditObjTypeTextView];
+                        YCTextView *nextTextView = [self creatTextViewWithObject:newPhoto index:i+2 text:nextText type:YCEditObjTypeView];
                         
                         [self _remakeObjectOfIndex:i+3 type:YCEditObjTypeTextView];
                         
@@ -493,15 +578,19 @@ creatPhotoViewWithObject:(id)object
         {
             NSInteger currentIndex = self.insertObjecArray.count-1;
             textView =(YCTextView *)[self.insertObjecArray lastObject];
-            YCAttachmentView *newPhoto = [self creatPhotoViewWithObject:textView index:currentIndex+1 model:nil image:image type:YCEditObjTypeTextView];
-            YCTextView *nextTextView = [self creatTxetViewWithObject:newPhoto index:currentIndex+2 text:@"" type:YCEditObjTypeView];
+            YCAttachmentView *newPhoto = [self creatPhotoViewWithObject:textView index:currentIndex+1 model:model image:image type:YCEditObjTypeTextView];
+            YCTextView *nextTextView = [self creatTextViewWithObject:newPhoto index:currentIndex+2 text:@"" type:YCEditObjTypeView];
             self.selectionTextView = nextTextView;
             self.selectionTextView.selectedRange = NSMakeRange(0, 0);
         }
     }
     else
     {
-        
+        textView = [self creatTextViewWithObject:self.textScrollView index:0 text:@"" type:YCEditObjTypeScrollerView];
+        YCAttachmentView *newPhoto = [self creatPhotoViewWithObject:textView index:1 model:model image:image type:YCEditObjTypeTextView];
+        YCTextView *nextTextView = [self creatTextViewWithObject:newPhoto index:2 text:@"" type:YCEditObjTypeView];
+        self.selectionTextView = nextTextView;
+        self.selectionTextView.selectedRange = NSMakeRange(0, 0);
     }
     
     //转换内容、保存数据
@@ -576,7 +665,7 @@ creatPhotoViewWithObject:(id)object
 //更新textView 布局
 - (void)_updateTextViewContentSize:(UITextView *)textView
 {
-    CGFloat height = [textView sizeThatFits:CGSizeMake(kScreenWidth, CGFLOAT_MAX)].height;
+    CGFloat height = [textView sizeThatFits:CGSizeMake(kScreenWidth-self.edgeMargin.left-self.edgeMargin.right, CGFLOAT_MAX)].height;
     //更新当前textview的高
     [textView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(height);
@@ -659,7 +748,7 @@ creatPhotoViewWithObject:(id)object
                         make.top.equalTo(viewObj.mas_bottom).offset(TextToImageSpace);
                         make.height.mas_equalTo(height);
                         make.centerX.equalTo(self.textScrollView);
-                        make.width.mas_equalTo(kScreenWidth);
+                        make.width.mas_equalTo(kScreenWidth-self.edgeMargin.left-self.edgeMargin.right);
                     }];
                 }
                     break;
@@ -670,7 +759,7 @@ creatPhotoViewWithObject:(id)object
                         make.top.equalTo(scrObj.mas_top).offset(TextToImageSpace);
                         make.height.mas_equalTo(height);
                         make.centerX.equalTo(scrObj);
-                        make.width.mas_equalTo(kScreenWidth);
+                        make.width.mas_equalTo(kScreenWidth-self.edgeMargin.left-self.edgeMargin.right);
                     }];
                 }
                     break;
@@ -681,7 +770,7 @@ creatPhotoViewWithObject:(id)object
                         make.top.equalTo(textViewObj.mas_bottom).offset(TextToImageSpace);
                         make.height.mas_equalTo(height);
                         make.centerX.equalTo(self.textScrollView);
-                        make.width.mas_equalTo(kScreenWidth);
+                        make.width.mas_equalTo(kScreenWidth-self.edgeMargin.left-self.edgeMargin.right);
                     }];
                 }
                     break;
@@ -703,39 +792,7 @@ creatPhotoViewWithObject:(id)object
 
 - (void)_changOrSaveContent
 {
-    [self _convertObjToContent];
-}
-
-/**
- 转换内容，内容拼接
- */
-- (void)_convertObjToContent
-{
-    __block NSMutableArray *textArr = [[NSMutableArray alloc] init];
-    [self.insertObjecArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        
-        //解析内容
-        NSString *content = @"";
-        if ([obj isKindOfClass:[YCTextView class]]) {
-            YCTextView *textView = obj;
-            content = textView.text;
-        }
-        
-        if ([obj isKindOfClass:[YCAttachmentView class]]) {
-            YCAttachmentView *attachView = obj;
-//            content = attachView.content;
-            content = @"[img]sefo.jpg[/img]";
-        }
-        
-        [textArr addObject:content];
-    }];
-    
-    NSString *content = @"";
-    if (textArr.count > 0) {
-        content = [textArr componentsJoinedByString:@""];
-    }
-    
-    self.messageContent = content;
+    self.messageContent = [YCEditConvertManager _convertObjToContent:self.insertObjecArray];
 }
 
 /**
@@ -752,7 +809,7 @@ creatPhotoViewWithObject:(id)object
     [self.insertObjecArray removeAllObjects];
     
     //获取内容数组
-    NSArray *contentArr = [self convertWithNNRegular:content];
+    NSArray *contentArr = [YCEditConvertManager convertWithNNRegular:content];
     
     id obj = self.textScrollView;
     YCEditObjType type = YCEditObjTypeScrollerView;
@@ -760,7 +817,7 @@ creatPhotoViewWithObject:(id)object
         NSString *text = contentArr[i];
         
         if (content.length > 0) {
-            if ([self predicateContentOfImage:text]) {
+            if ([YCEditConvertManager predicateContentOfImage:text]) {
                 UIImage *image = [UIImage imageNamed:@"images_01.jpg"];
                 YCAttachmentView *newPhoto = [self creatPhotoViewWithObject:obj index:i model:nil image:image type:type];
                 obj = newPhoto;
@@ -768,58 +825,18 @@ creatPhotoViewWithObject:(id)object
             }
             else
             {
-                YCTextView *nextTextView = [self creatTxetViewWithObject:obj index:i text:text type:type];
+                YCTextView *nextTextView = [self creatTextViewWithObject:obj index:i text:text type:type];
                 obj = nextTextView;
                 type = YCEditObjTypeTextView;
             }
         }
         else
         {
-            YCTextView *nextTextView = [self creatTxetViewWithObject:obj index:i text:text type:type];
+            YCTextView *nextTextView = [self creatTextViewWithObject:obj index:i text:text type:type];
             obj = nextTextView;
             type = YCEditObjTypeTextView;
         }
     }
-}
-
-- (BOOL)predicateContentOfImage:(NSString *)content{
-    NSString *regex = kRegexImage;
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
-    
-    return [predicate evaluateWithObject:content];
-}
-
-- (NSArray *)convertWithNNRegular:(NSString *)aInputText{
-    NSString *urlPattern = kRegexImage;
-    NSError *error = nil;
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:urlPattern options:NSRegularExpressionCaseInsensitive error:&error ];
-    
-    NSArray *matches = [regex matchesInString:aInputText options:NSMatchingReportCompletion range:NSMakeRange(0, [aInputText length])];
-    
-    NSMutableArray *arr = [[NSMutableArray alloc] init];
-    
-    if (matches.count <= 0) {
-        [arr addObject:aInputText];
-        return arr;
-    }
-    
-    NSRange getRange = NSMakeRange(0, 0);
-    for (NSTextCheckingResult *match in [matches objectEnumerator]) {
-        NSRange matchRange = [match range];
-        
-        NSString *subStr = [aInputText substringWithRange:NSMakeRange(getRange.location+getRange.length, matchRange.location-getRange.location-getRange.length)];
-        NSString *attachStr = [aInputText substringWithRange:matchRange];
-        
-        [arr addObject:subStr];
-        [arr addObject:attachStr];
-        getRange = matchRange;
-    }
-    
-    if (getRange.location+getRange.length == aInputText.length) {
-        [arr addObject:@""];
-    }
-    
-    return arr;
 }
 
 /**
@@ -854,13 +871,6 @@ creatPhotoViewWithObject:(id)object
 
 #pragma mark---UITextViewDelegate
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView{
-    YCTextView *lastTextView = (YCTextView *)[self.insertObjecArray lastObject];
-    if (lastTextView == textView) {
-        _editTextView = NO;
-    }else{
-        _editTextView = YES;
-    }
-    
     self.selectionTextView = (YCTextView *)textView;
     
     return YES;
