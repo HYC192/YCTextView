@@ -26,7 +26,19 @@
 #define EditePothoDefHeight 100
 #define kPlaceHoldText @"请输入正文"  //textview默认提示文字
 
-@interface YCEditController ()<UITextViewDelegate,NSTextStorageDelegate,UIScrollViewDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate, YCAttachmentViewDelegate>
+@interface YCEditController ()<UITextFieldDelegate,UITextViewDelegate,NSTextStorageDelegate,UIScrollViewDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate, YCAttachmentViewDelegate>
+/**
+ 称呼编辑框
+ */
+@property (nonatomic, strong) UITextField *salutationTextField;
+/**
+ 署名编辑框
+ */
+@property (nonatomic, strong) UITextField *signatureTextField;
+/**
+ 键盘高度
+ */
+@property (nonatomic, assign) CGFloat keyboardHeight;
 /**
  顶部背景视图
  */
@@ -86,9 +98,34 @@
 }
 
 #pragma mark - Custom Accessor
+- (UITextField *)salutationTextField{
+    if (!_salutationTextField) {
+        _salutationTextField = [[UITextField alloc] init];
+        _salutationTextField.delegate = self;
+        NSAttributedString *name = [[NSAttributedString alloc] initWithString:@"称呼" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16], NSForegroundColorAttributeName:[UIColor grayColor]}];
+        _salutationTextField.attributedPlaceholder = name;
+        [_salutationTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    }
+    return _salutationTextField;
+}
+
+- (UITextField *)signatureTextField{
+    if (!_signatureTextField) {
+        _signatureTextField = [[UITextField alloc] init];
+        _signatureTextField.delegate = self;
+        _signatureTextField.textAlignment = NSTextAlignmentRight;
+        NSAttributedString *name = [[NSAttributedString alloc] initWithString:@"署名" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16], NSForegroundColorAttributeName:[UIColor grayColor]}];
+        _signatureTextField.attributedPlaceholder = name;
+        [_signatureTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+//        _signatureTextField.text = [NSString isEmptyString:SELF_USER_NiceName]?SELF_USER_Name:SELF_USER_NiceName;
+    }
+    return _signatureTextField;
+}
+
 - (UIImageView *)topImageView{
     if (_topImageView == nil) {
         _topImageView = [[UIImageView alloc] init];
+        _topImageView.userInteractionEnabled = YES;
         _topImageView.backgroundColor = [UIColor redColor];
     }
     return _topImageView;
@@ -97,6 +134,7 @@
 - (UIImageView *)centerImageView{
     if (_centerImageView == nil) {
         _centerImageView = [[UIImageView alloc] init];
+        _centerImageView.userInteractionEnabled = YES;
         _centerImageView.backgroundColor = [UIColor orangeColor];
     }
     return _centerImageView;
@@ -105,6 +143,7 @@
 - (UIImageView *)bottomImageView{
     if (_bottomImageView == nil) {
         _bottomImageView = [[UIImageView alloc] init];
+        _bottomImageView.userInteractionEnabled = YES;
         _bottomImageView.backgroundColor = [UIColor greenColor];
     }
     return _bottomImageView;
@@ -134,6 +173,27 @@
     return _insertImageArray;
 }
 
+- (void)setEditToolBar:(YCEditToolBar *)editToolBar
+{
+    [_editToolBar removeFromSuperview];
+    _editToolBar = editToolBar;
+    if (_editToolBar) {
+        [self.view addSubview:_editToolBar];
+    }
+    
+    CGRect centerFrame = self.centerImageView.frame;
+    centerFrame.size.height = self.view.frame.size.height - _editToolBar.frame.size.height;
+    [self.centerImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.mas_equalTo(0);
+        make.bottom.mas_equalTo(-_editToolBar.frame.size.height);
+    }];
+    self.centerImageView.frame = centerFrame;
+    
+    if ([editToolBar isKindOfClass:[YCEditToolBar class]]) {
+        [_editToolBar setDelegate:self];
+    }
+}
+
 #pragma mark - Action
 - (void)selectPhotoAction:(id)sender
 {
@@ -145,7 +205,12 @@
 
 //键盘显示
 - (void)keyboardWillShow:(NSNotification *)aNotification{
-    
+    //获取键盘的高度
+    NSDictionary *userInfo = [aNotification userInfo];
+    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    CGRect keyboardRect = [aValue CGRectValue];
+    int height = keyboardRect.size.height;
+    _keyboardHeight = height;
 }
 
 //键盘隐藏
@@ -170,7 +235,9 @@
 //    height = height > InputViewBarHeight ? height : InputViewBarHeight;
     height = 0;
     
+    BOOL ret = NO;
     if (offset_y<0) {
+        ret = YES;
         if (endFrame.origin.y < endHeight) {
             newFrame.origin.y = endHeight - endFrame.size.height-height;
         }
@@ -189,8 +256,13 @@
             newFrame.origin.y = endHeight - endFrame.size.height - height;
         }
     }
+    
+    if (_editToolBar) {
+        self.editToolBar.popKeyboard = ret;
+    }
+    
     CGRect frame = CGRectMake(0, newFrame.origin.y, kScreenWidth, height);
-    [self changeFrameAnimation:duration newFrame:frame oldFrame:self.inputView.frame];
+    [self changeFrameAnimation:duration newFrame:frame oldFrame:self.inputView.frame isShow:ret];
 }
 
 #pragma mark ------------------- Privacy ----------------------
@@ -198,6 +270,7 @@
 {
     _edgeMargin = UIEdgeInsetsMake(0, 15, 0, 15);
     _currentScrHeight = 0;
+    _keyboardHeight = 0;
 }
 
 - (void)_addKeyBordNotifiy {
@@ -229,7 +302,6 @@
 - (void)_settingUpNavigations
 {
     self.title = @"图文混排";
-    self.view.backgroundColor = [UIColor whiteColor];
     self.navigationController.navigationBar.translucent = NO;
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -245,9 +317,12 @@
 - (void)_settingUpSubviews
 {
     [self.view addSubview:self.centerImageView];
-    [self.view addSubview:self.topImageView];
-    [self.view addSubview:self.textScrollView];
-    [self.view addSubview:self.bottomImageView];
+    [self.centerImageView addSubview:self.topImageView];
+    [self.centerImageView addSubview:self.textScrollView];
+    [self.centerImageView addSubview:self.bottomImageView];
+    
+    [self.centerImageView addSubview:self.salutationTextField];
+    [self.centerImageView addSubview:self.signatureTextField];
     
     if (@available(iOS 11.0, *)) {
         self.textScrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
@@ -255,10 +330,29 @@
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
     
+    CGFloat toolbarHeight = [YCEditToolBar defaultHeight];
     @weakify(self);
     [self.centerImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.mas_equalTo(UIEdgeInsetsMake(0, 0, 0, 0));
+        make.top.left.right.mas_equalTo(0);
+        make.bottom.mas_equalTo(-toolbarHeight);
     }];
+    
+    [self.salutationTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.edgeMargin.left);
+        make.right.mas_equalTo(-(kScreenWidth-self.edgeMargin.left-self.edgeMargin.right)*1/4);
+        make.bottom.equalTo(self.topImageView.mas_bottom);
+        make.height.mas_equalTo(40);
+    }];
+    
+    [self.signatureTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(-self.edgeMargin.right);
+        make.left.mas_equalTo((kScreenWidth-self.edgeMargin.left-self.edgeMargin.right)*1/4);
+        make.top.equalTo(self.bottomImageView.mas_top);
+        make.height.mas_equalTo(40);
+    }];
+    
+    self.editToolBar = [[YCEditToolBar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - toolbarHeight, self.view.frame.size.width, toolbarHeight)];
+    self.editToolBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
     
     [self.topImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.centerImageView.mas_top);
@@ -271,7 +365,7 @@
         make.bottom.equalTo(self.centerImageView.mas_bottom);
         make.left.equalTo(self.centerImageView.mas_left);
         make.right.equalTo(self.centerImageView.mas_right);
-        make.height.mas_equalTo(50);
+        make.height.mas_equalTo(80);
     }];
     
     [self.textScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -421,6 +515,8 @@ creatPhotoViewWithObject:(id)object
             break;
         case YCEditObjTypeTextView:{
             textViewObject = (UITextView *)object;
+            [self _updateLayoutOldObj:textViewObject];
+            
             [attachView mas_makeConstraints:^(MASConstraintMaker *make) {
                 @strongify(self);
                 make.top.equalTo(textViewObject.mas_bottom).offset(TextToImageSpace);
@@ -488,6 +584,16 @@ creatPhotoViewWithObject:(id)object
         else if ([obj isKindOfClass:[YCTextView class]])
         {
             YCTextView *textView = obj;
+            
+            //设置最后的编辑框高度 铺满可见屏幕
+            if (CGRectGetMaxY(textView.frame)+nowHeight < self.textScrollView.bounds.size.height) {
+                CGFloat height = CGRectGetHeight(textView.frame);
+                height += self.textScrollView.bounds.size.height-(CGRectGetMaxY(textView.frame)+nowHeight);
+                [textView mas_updateConstraints:^(MASConstraintMaker *make) {
+                    make.height.mas_equalTo(height);
+                }];
+            }
+            
             nowHeight += CGRectGetMaxY(textView.frame);
         }
         
@@ -507,6 +613,10 @@ creatPhotoViewWithObject:(id)object
         
     }
     
+    if (nowHeight < self.textScrollView.bounds.size.height) {
+        nowHeight = self.textScrollView.bounds.size.height;
+    }
+    
     self.textScrollView.contentSize = CGSizeMake(kScreenWidth, nowHeight);
 }
 
@@ -521,7 +631,27 @@ creatPhotoViewWithObject:(id)object
 - (void)changeFrameAnimation:(CGFloat)duration
                     newFrame:(CGRect)newFrame
                     oldFrame:(CGRect)oldFrame
+                      isShow:(BOOL)show
 {
+    CGFloat toolHeight = 0;
+    if (_editToolBar) {
+        toolHeight = [YCEditToolBar defaultHeight];
+        
+        [self _bottomViewChangeLayout:show];
+        if (show) {
+            if (self.salutationTextField.isFirstResponder) {
+                newFrame.origin.y += toolHeight+CGRectGetHeight(self.bottomImageView.frame);
+            }
+            else if (self.signatureTextField.isFirstResponder)
+            {
+                newFrame.origin.y += toolHeight;
+            }
+        }
+        
+        
+        [self.editToolBar willShowBottomHeight:kScreenHeight-NavHeight-newFrame.origin.y];
+    }
+    
     @weakify(self);
     CGRect frame = self.centerImageView.frame;
     frame.size.height = newFrame.origin.y;
@@ -532,9 +662,12 @@ creatPhotoViewWithObject:(id)object
             make.top.left.right.mas_equalTo(0);
 //            make.bottom.equalTo(self.bottomImageView.mas_top);
 //            make.top.left.right.mas_equalTo(0);
-            make.height.mas_equalTo(CGRectGetHeight(frame));
+            make.height.mas_equalTo(CGRectGetHeight(frame)-toolHeight);
         }];
         self.centerImageView.frame = frame;
+        
+    } completion:^(BOOL finished) {
+        [self _updateScrollerViewContentSize];
     }];
 }
 
@@ -666,10 +799,34 @@ creatPhotoViewWithObject:(id)object
 - (void)_updateTextViewContentSize:(UITextView *)textView
 {
     CGFloat height = [textView sizeThatFits:CGSizeMake(kScreenWidth-self.edgeMargin.left-self.edgeMargin.right, CGFLOAT_MAX)].height;
-    //更新当前textview的高
-    [textView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(height);
-    }];
+    
+    id obj = [self.insertObjecArray lastObject];
+    if ([obj isKindOfClass:[YCTextView class]]) {
+        YCTextView *lastView = obj;
+        if (lastView == textView) {
+            if (CGRectGetMinY(textView.frame)+height+MoreHeight < self.textScrollView.bounds.size.height) {
+                if (CGRectGetHeight(textView.frame) < height) {
+                    [self _updateLayoutOldObj:textView];
+                }
+                
+                return;
+            }
+        }
+    }
+    
+    [self _updateLayoutOldObj:textView];
+}
+
+- (void)_updateLayoutOldObj:(id)obj
+{
+    if ([obj isKindOfClass:[YCTextView class]]) {
+        YCTextView *textView = obj;
+        CGFloat height = [textView sizeThatFits:CGSizeMake(kScreenWidth-self.edgeMargin.left-self.edgeMargin.right, CGFLOAT_MAX)].height;
+        //更新当前textview的高
+        [textView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(height);
+        }];
+    }
 }
 
 //重新布局指定控件
@@ -790,6 +947,7 @@ creatPhotoViewWithObject:(id)object
     [self performSelector:@selector(_changOrSaveContent) withObject:nil afterDelay:2];
 }
 
+//视图转换文字内容
 - (void)_changOrSaveContent
 {
     self.messageContent = [YCEditConvertManager _convertObjToContent:self.insertObjecArray];
@@ -839,6 +997,41 @@ creatPhotoViewWithObject:(id)object
     }
 }
 
+//是否调整底部控件布局
+- (void)_bottomViewChangeLayout:(BOOL)isChange
+{
+    CGFloat changeHeight = 50;
+    if (!isChange) {
+        changeHeight = 80;
+    }
+    self.bottomImageView.hidden = isChange;
+    
+    [self.bottomImageView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(changeHeight);
+    }];
+}
+
+//textview成为第一响应者
+- (void)_textViewBecomeFirstResponder
+{
+    if (_selectionTextView) {
+        if (!self.selectionTextView.isFirstResponder) {
+            [self.selectionTextView becomeFirstResponder];
+        }
+    }
+    else
+    {
+        for (id obj in [self.insertObjecArray objectEnumerator]) {
+            if ([obj isKindOfClass:[YCTextView class]]) {
+                YCTextView *textView = obj;
+                textView.selectedRange = NSMakeRange(textView.text.length, 0);
+                [textView becomeFirstResponder];
+                break;
+            }
+        }
+    }
+}
+
 /**
  * 是否自动旋转
  */
@@ -869,7 +1062,44 @@ creatPhotoViewWithObject:(id)object
     [self _deleteAttachViewWithObject:obj];
 }
 
+#pragma mark - UITextFieldDelegate
+- (void)textFieldDidBeginEditing:(UITextField *)textField{
+    CGRect frame = self.inputView.frame;
+    if (_keyboardHeight > 0) {
+        frame.origin.y = kScreenHeight-NavHeight-_keyboardHeight;
+        [self changeFrameAnimation:0.2 newFrame:frame oldFrame:self.inputView.frame isShow:YES];
+    }
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    NSString *str = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    
+    NSInteger maxLength = 20;
+    if (textField == self.salutationTextField) {
+        maxLength = 30;
+    }
+    if (str.length > maxLength) {
+//        [Tooltip showMessage:[NSString stringWithFormat:@"不能超过%ld个字符",maxLength]];
+        [textField resignFirstResponder];
+        return NO;
+    }
+    return YES;
+}
+
+- (void)textFieldDidChange:(UITextField *)textField
+{
+    
+}
+
 #pragma mark---UITextViewDelegate
+- (void)textViewDidBeginEditing:(UITextView *)textView{
+    CGRect frame = self.inputView.frame;
+    if (_keyboardHeight > 0) {
+        frame.origin.y = kScreenHeight-NavHeight-_keyboardHeight;
+        [self changeFrameAnimation:0.2 newFrame:frame oldFrame:self.inputView.frame isShow:YES];
+    }
+}
+
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView{
     self.selectionTextView = (YCTextView *)textView;
     
@@ -913,6 +1143,44 @@ creatPhotoViewWithObject:(id)object
 //    UIImage *image1 = [image scaleToSize:CGSizeMake(width, image.size.height*width/image.size.width)];
     [self insertNewImageWithImage:image model:nil];
     [self dismissViewControllerAnimated:picker completion:nil];
+}
+
+#pragma mark - YCEditToolBarDelegate
+- (void)didChangeInputHeight:(CGFloat)inputHeight{
+    CGRect frame = self.centerImageView.frame;
+    frame.size.height = self.view.frame.size.height - inputHeight;
+    
+    BOOL ret = inputHeight > [YCEditToolBar defaultHeight];
+    [self _bottomViewChangeLayout:ret];
+    
+    @weakify(self);
+    [UIView animateWithDuration:0.3 animations:^{
+        @strongify(self);
+        [self.centerImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.left.right.mas_equalTo(0);
+            make.height.mas_equalTo(CGRectGetHeight(frame));
+        }];
+        self.centerImageView.frame = frame;
+        
+    } completion:^(BOOL finished) {
+        [self _updateScrollerViewContentSize];
+    }];
+}
+
+- (void)_changeToolbarBottomViewShowHideAction:(NSInteger)tag isShow:(BOOL)show{
+    if (tag == 1000) {
+        if (show) {
+            [self _textViewBecomeFirstResponder];
+        }
+        else
+        {
+            [self.view endEditing:YES];
+        }
+        return;
+    }
+    
+    //其它控件设置
+    [self.view endEditing:YES];
 }
 
 #pragma mark - UIScrollerViewDelegate

@@ -7,12 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "YCEditToolBar.h" //底部控件
 
 typedef NS_ENUM(NSInteger, YCEditObjType) {
     YCEditObjTypeTextView = 1,
     YCEditObjTypeScrollerView,
     YCEditObjTypeView
 };
-@interface YCEditController : UIViewController
+@interface YCEditController : UIViewController<YCEditToolBarDelegate>
+/**
+ 底部控件工具
+ */
+@property (nonatomic, strong) YCEditToolBar *editToolBar;
+
+/**
+ 传入内容
+ */
 @property (nonatomic, strong) NSString *messageContent;
 @end

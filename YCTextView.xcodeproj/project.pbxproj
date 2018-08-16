@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0407F6AB20CFAF8B0017AD03 /* YCEditToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0407F6AA20CFAF8B0017AD03 /* YCEditToolBar.m */; };
+		0407F6AE20CFD0AE0017AD03 /* YCFontSettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0407F6AD20CFD0AE0017AD03 /* YCFontSettingView.m */; };
+		0407F6B120D0A95B0017AD03 /* UIButton+YCExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0407F6B020D0A95B0017AD03 /* UIButton+YCExtension.m */; };
 		04BBC47920BC055100993E00 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BBC47820BC055100993E00 /* AppDelegate.m */; };
 		04BBC47C20BC055100993E00 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BBC47B20BC055100993E00 /* ViewController.m */; };
 		04BBC47F20BC055100993E00 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04BBC47D20BC055100993E00 /* Main.storyboard */; };
@@ -41,6 +44,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0407F6A920CFAF8B0017AD03 /* YCEditToolBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YCEditToolBar.h; sourceTree = "<group>"; };
+		0407F6AA20CFAF8B0017AD03 /* YCEditToolBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YCEditToolBar.m; sourceTree = "<group>"; };
+		0407F6AC20CFD0AE0017AD03 /* YCFontSettingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YCFontSettingView.h; sourceTree = "<group>"; };
+		0407F6AD20CFD0AE0017AD03 /* YCFontSettingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YCFontSettingView.m; sourceTree = "<group>"; };
+		0407F6AF20D0A95B0017AD03 /* UIButton+YCExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIButton+YCExtension.h"; sourceTree = "<group>"; };
+		0407F6B020D0A95B0017AD03 /* UIButton+YCExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIButton+YCExtension.m"; sourceTree = "<group>"; };
 		04BBC47420BC055100993E00 /* YCTextView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YCTextView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04BBC47720BC055100993E00 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		04BBC47820BC055100993E00 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -160,6 +169,12 @@
 			children = (
 				04BBC4AA20BC0A2D00993E00 /* YCTextView.h */,
 				04BBC4AB20BC0A2D00993E00 /* YCTextView.m */,
+				0407F6A920CFAF8B0017AD03 /* YCEditToolBar.h */,
+				0407F6AA20CFAF8B0017AD03 /* YCEditToolBar.m */,
+				0407F6AF20D0A95B0017AD03 /* UIButton+YCExtension.h */,
+				0407F6B020D0A95B0017AD03 /* UIButton+YCExtension.m */,
+				0407F6AC20CFD0AE0017AD03 /* YCFontSettingView.h */,
+				0407F6AD20CFD0AE0017AD03 /* YCFontSettingView.m */,
 				04BBC4AD20BC0AA100993E00 /* YCAttachmentView.h */,
 				04BBC4AE20BC0AA200993E00 /* YCAttachmentView.m */,
 				04CD818F20C0DFB700E69D05 /* YCEditConvertManager.h */,
@@ -346,10 +361,13 @@
 				04BBC47C20BC055100993E00 /* ViewController.m in Sources */,
 				04BBC4B220BCEE2E00993E00 /* YCEditController.m in Sources */,
 				04CD819120C0DFB700E69D05 /* YCEditConvertManager.m in Sources */,
+				0407F6B120D0A95B0017AD03 /* UIButton+YCExtension.m in Sources */,
 				04BBC4AF20BC0AA200993E00 /* YCAttachmentView.m in Sources */,
 				04BBC48720BC055100993E00 /* main.m in Sources */,
 				04BBC47920BC055100993E00 /* AppDelegate.m in Sources */,
+				0407F6AE20CFD0AE0017AD03 /* YCFontSettingView.m in Sources */,
 				04BBC4AC20BC0A2D00993E00 /* YCTextView.m in Sources */,
+				0407F6AB20CFAF8B0017AD03 /* YCEditToolBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
